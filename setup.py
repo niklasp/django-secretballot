@@ -4,14 +4,14 @@ long_description = open('README.rst').read()
 
 setup(
     name='django-secretballot',
-    version="0.2.4",
+    version="0.2.5",
     package_dir={'secretballot': 'secretballot'},
     packages=['secretballot'],
     description='Django anonymous voting application',
-    author='James Turk',
-    author_email='jturk@sunlightfoundation.com',
+    author='James Turk, Niklas Plessing',
+    author_email='jturk@sunlightfoundation.com, contact@niklasplessing.net',
     license='BSD License',
-    url='http://github.com/sunlightlabs/django-secretballot/',
+    url='https://github.com/niklasp/django-secretballot',
     long_description=long_description,
     platforms=["any"],
     install_requires=[

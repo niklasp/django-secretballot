@@ -5,7 +5,6 @@ from django.db.models.base import ModelBase
 from django.contrib.contenttypes.models import ContentType
 from secretballot.models import Vote
 
-
 def vote(request, content_type, object_id, vote, can_vote_test=None,
          redirect_url=None, template_name=None, template_loader=loader,
          extra_context=None, context_processors=None, mimetype=None):
