@@ -1,4 +1,5 @@
 import random
+import json
 
 from django.template import loader, RequestContext
 from django.core.exceptions import ImproperlyConfigured
@@ -65,37 +66,30 @@ def vote(request, content_type, object_id, vote, can_vote_test=None,
         t = template_loader.get_template(template_name)
         body = t.render(c)
     else:
-        votes = Vote.objects.filter(content_type=content_type, object_id=object_id).count()
-        body = '{"num_votes":%d}' % votes
+        votes = Vote.objects.filter(content_type=content_type, object_id=object_id)
+        plus = votes.filter(vote='+1').count()
+        minus = votes.filter(vote='-1').count()
+        response_data = {}
+        response_data['success'] = 'true'
+        response_data['+1'] = plus
+        response_data['-1'] = minus
+        response_data['']
+        
 
-    return HttpResponse(body, content_type=mimetype)
+    return HttpResponse(json.dumps(response_data), content_type=mimetype)
 
 
-def vote_ajax(request, content_type, object_id, _vote):
+def vote_ajax(request, content_type, object_id, the_vote):
     # Crawlers will follow the like link if anonymous liking is enabled. They
     # typically do not have referrer set.
     if 'HTTP_REFERER' not in request.META:
         return HttpResponseNotFound()
 
     if request.is_ajax():
-        response = vote(
-            request,
-            content_type=content_type,
-            object_id=object_id,
-            vote=_vote,
-            template_name='likes/inclusion_tags/likes.html',
-        )
+        response_data = {}
+        response_data['success'] = 'true'
+        response = vote(request,content_type,object_id,the_vote,mimetype='application/json')
     else:
-        # Redirect to referer but append unique number(determined
-        # from global vote count) to end of URL to bypass local cache.
-        redirect_url = '%s?v=%s' % (request.META['HTTP_REFERER'],
-                                    random.randint(0, 10))
-        response = vote(
-            request,
-            content_type=content_type,
-            object_id=object_id,
-            vote=_vote,
-            redirect_url=redirect_url,
-        )
+        response = HttpResponse("nope") 
 
     return response
