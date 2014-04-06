@@ -71,9 +71,7 @@ def vote(request, content_type, object_id, vote, can_vote_test=None,
     return HttpResponse(body, content_type=mimetype)
 
 
-def vote_ajax(request, content_type, object_id, vote, can_vote_test=None,
-         redirect_url=None, template_name=None, template_loader=loader,
-         extra_context=None, context_processors=None, mimetype=None):
+def vote_ajax(request, content_type, object_id, vote):
     # Crawlers will follow the like link if anonymous liking is enabled. They
     # typically do not have referrer set.
     if 'HTTP_REFERER' not in request.META:
