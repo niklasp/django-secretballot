@@ -8,11 +8,9 @@ class SecretBallotMiddleware(object):
     def generate_token(self, request):
         raise NotImplementedError
 
-
 class SecretBallotIpMiddleware(SecretBallotMiddleware):
     def generate_token(self, request):
         return request.META['REMOTE_ADDR']
-
 
 class SecretBallotIpUseragentMiddleware(SecretBallotMiddleware):
     def generate_token(self, request):
