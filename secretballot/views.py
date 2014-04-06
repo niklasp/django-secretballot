@@ -1,9 +1,14 @@
+import random
+
 from django.template import loader, RequestContext
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.db.models.base import ModelBase
 from django.contrib.contenttypes.models import ContentType
 from secretballot.models import Vote
+from django.http import HttpResponseNotFound
+
+
 
 def vote_ajax(request, content_type, object_id, vote, can_vote_test=None,
          redirect_url=None, template_name=None, template_loader=loader,
