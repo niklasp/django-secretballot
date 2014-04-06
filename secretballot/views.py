@@ -73,8 +73,6 @@ def vote(request, content_type, object_id, vote, can_vote_test=None,
         response_data['success'] = 'true'
         response_data['+1'] = plus
         response_data['-1'] = minus
-        response_data['']
-        
 
     return HttpResponse(json.dumps(response_data), content_type=mimetype)
 
