@@ -86,7 +86,6 @@ def vote_ajax(request, content_type, object_id, vote, can_vote_test=None,
             object_id=id,
             vote=vote,
             template_name='likes/inclusion_tags/likes.html',
-            can_vote_test=can_vote_test,
         )
     else:
         # Redirect to referer but append unique number(determined
@@ -99,7 +98,6 @@ def vote_ajax(request, content_type, object_id, vote, can_vote_test=None,
             object_id=id,
             vote=vote,
             redirect_url=redirect_url,
-            can_vote_test=can_vote_test
         )
 
     return response
